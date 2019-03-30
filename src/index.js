@@ -1,0 +1,5 @@
+import "aframe-harlyq-components/src/aframe-gltf-part-component.js"
+import "aframe-harlyq-components/src/aframe-materialx-component.js"
+import "aframe-harlyq-components/src/aframe-simple-hands-component.js"
+import "aframe-harlyq-components/src/aframe-wait-set-component.js"
+import "./aframe-puzzle-3d-component.js"

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AFrame Puzzle 3D</title>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-haptics-component/dist/aframe-haptics-component.min.js"></script>
+    <script src="dist/aframe-puzzle-3d.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="ghost" materialx="remap:*; color: lightblue; depthWrite: false; transparent: true; opacity: 0.1"></a-mixin>
+        <a-mixin id="puzzle" scale="0.01 0.01 0.01" puzzle-3d="goalPositions: 0 1.2 -0.5; goalRotations: 90 90 0; goalMixin: ghost"></a-mixin>
+        <a-mixin id="puzzle-hands" simple-hands="objects:[mixin=puzzle]; debug: false; offset: 0 -0.03 -0.03; radius: 0.01" haptics="eventsFrom: #puzzle; events: puzzlesnap; force: 0.5"></a-mixin>
+        <a-asset-item id="bismarck" src="assets/bismarck2.glb"></a-asset-item>
+        <a-asset-item response-type="arraybuffer" id="clickon" src="assets/clickon.mp3"></a-asset-item>
+        <a-asset-item response-type="arraybuffer" id="clickoff" src="assets/clickoff.mp3"></a-asset-item>
+      </a-assets>
+      <a-entity id="cameraRig">
+        <a-camera></a-camera>
+        <a-entity id="leftHand" vive-controls="hand: left" windows-motion-controls="hand: left" oculus-controls="hand: left" mixin="puzzle-hands"></a-entity>
+        <a-entity id="rightHand" vive-controls="hand: right" windows-motion-controls="hand: right" oculus-controls="hand: right" mixin="puzzle-hands"></a-entity>
+      </a-entity>
+      <a-sky color="black"></a-sky>
+      <a-entity id="puzzle" 
+          wait-set__hoverstart="event: hoverstart; targetScope: event; materialx.remap: *; materialx.color: yellow; materiax.transparent: true; materialx.opacity: 0.8" 
+          wait-set__hoverend="event: hoverend; targetScope: event; materialx:"
+          sound__snap="src: #clickon; on: puzzlesnap"
+          sound__free="src: #clickoff; on: puzzlefree">
+        <a-entity id="bow" position="0 1 -.2" rotation="90 105 0" gltf-part="src: #bismarck; part: Bow" mixin="puzzle"></a-entity>
+        <a-entity id="turretA" position="-.1 1.1 -.75" rotation="90 16 0" gltf-part="src: #bismarck; part: TurretA" mixin="puzzle"></a-entity>
+        <a-entity id="turretB" position=".14 1.1 -.1" rotation="90 100 0" gltf-part="src: #bismarck; part: TurretB" mixin="puzzle" puzzle-3d="goalPositions: 0 1.2 -0.5, -.025 1.2 -0.5; goalRotations: 90 90 0, 90 -90 0"></a-entity>
+        <a-entity id="turretC" position="-.5 1 -.4" rotation="90 -94 0" gltf-part="src: #bismarck; part: TurretC" mixin="puzzle" puzzle-3d="goalPositions: 0 1.2 -0.5, -.025 1.2 -0.5; goalRotations: 90 90 0, 90 -90 0"></a-entity>
+        <a-entity id="turretD" position=".11 1.3 -.1" rotation="90 75 0" gltf-part="src: #bismarck; part: TurretD" mixin="puzzle"></a-entity>
+        <a-entity id="frontDeck" position="-.5 1.1 -.1" rotation="90 97.5 0" gltf-part="src: #bismarck; part: FrontDeck" mixin="puzzle"></a-entity>
+        <a-entity id="backDeck" position=".8 1.3 -.16" rotation="90 80 0" gltf-part="src: #bismarck; part: BackDeck" mixin="puzzle"></a-entity>
+        <a-entity id="stern" position="0 1.2 -.5" rotation="90 90 0" gltf-part="src: #bismarck; part: Stern" mixin="puzzle" puzzle-3d="snapIndex: 0"></a-entity> <!-- hints to the user that they need to move parts to the ghost -->
+        <a-text id="attribution" scale="0.1 0.1 0.1" position="0.45 1.1 -.5" color="#e2d054" value="Bismarck by maxromash@sketchfab" side="double"></a-text>
+      </a-entity>
+      <a-plane rotation="-90 0 0" scale="4 4 4" material="color: lightblue; opacity: 0.1"></a-plane>
+      <a-circle rotation="0 0 0" scale="0.01 0.01 0.01" position="0 0.01 0" material="color: black;"></a-circle>
+    </a-scene>
+  </body>
+</html>

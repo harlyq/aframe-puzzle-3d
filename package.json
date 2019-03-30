@@ -1,0 +1,22 @@
+{
+  "name": "aframe-puzzle-3d",
+  "version": "0.1.0",
+  "description": "3D jigsaw puzzles for AFrame",
+  "main": "index.html",
+  "scripts": {
+    "build": "rollup --config && uglifyjs dist/aframe-puzzle-3d.js --compress --mangle -o dist/aframe-puzzle-3d.min.js",
+    "watch": "rollup --config --watch"
+  },
+  "author": "harlyq",
+  "license": "MIT",
+  "peerDependencies": {
+    "aframe": "^0.9.0",
+    "three": "^0.101.0"
+  },
+  "devDependencies": {
+    "rollup-plugin-node-resolve": "^4.0.1"
+  },
+  "dependencies": {
+    "aframe-harlyq-components": "git+https://git@github.com/harlyq/aframe-harlyq-components.git"
+  }
+}
